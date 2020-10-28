@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mendale.dao.vote.BiVoteCandidateDao">
+
+	<resultMap id="RM_BiVoteCandidate" type="BiVoteCandidate">
+		<result property="id" column="ID" />
+		<result property="brandCode" column="BRAND_CODE" />
+		<result property="brandName" column="BRAND_NAME" />
+		<result property="deptCode" column="DEPT_CODE" />
+		<result property="deptName" column="DEPT_NAME" />
+		<result property="jobNum" column="JOB_NUM" />
+		<result property="name" column="NAME" />
+		<result property="isDelete" column="IS_DELETE" />
+		<result property="creationDate" column="CREATION_DATE" />
+		<result property="lastUpdateDate" column="LAST_UPDATE_DATE" />
+	</resultMap>
+
+	<sql id="BiVoteCandidateColumns">
+	    <![CDATA[
+		ID,BRAND_CODE,BRAND_NAME,DEPT_CODE,DEPT_NAME,JOB_NUM,NAME,IS_DELETE,CREATION_DATE,LAST_UPDATE_DATE
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="BiVoteCandidate">
+	    <![CDATA[
+	        INSERT INTO BI_VOTE_CANDIDATE (
+	        	BRAND_CODE ,
+	        	BRAND_NAME ,
+	        	DEPT_CODE ,
+	        	DEPT_NAME ,
+	        	JOB_NUM ,
+	        	NAME ,
+	        	IS_DELETE ,
+	        	CREATION_DATE ,
+	        	LAST_UPDATE_DATE 
+	        ) VALUES (
+	        	#{brandCode,jdbcType=VARCHAR} ,
+	        	#{brandName,jdbcType=VARCHAR} ,
+	        	#{deptCode,jdbcType=VARCHAR} ,
+	        	#{deptName,jdbcType=VARCHAR} ,
+	        	#{jobNum,jdbcType=VARCHAR} ,
+	        	#{name,jdbcType=VARCHAR} ,
+	        	#{isDelete,jdbcType=DECIMAL} ,
+	        	#{creationDate,jdbcType=DATE} ,
+	        	#{lastUpdateDate,jdbcType=DATE} 
+	        )
+	    ]]>
+	</insert>
+	
+	<insert id="insertCandidateList" parameterType="List">
+	        INSERT INTO BI_VOTE_CANDIDATE (
+	        	BRAND_CODE ,
+	        	BRAND_NAME ,
+	        	DEPT_CODE ,
+	        	DEPT_NAME ,
+	        	JOB_NUM ,
+	        	NAME ,
+	        	IS_DELETE ,
+	        	CREATION_DATE ,
+	        	LAST_UPDATE_DATE 
+	        ) select A.* from (
+	       <foreach collection="list" item="item" index="index" separator="union all" >  
+	        select
+	        	#{item.brandCode,jdbcType=VARCHAR} brandCode,
+	        	#{item.brandName,jdbcType=VARCHAR} brandName,
+	        	#{item.deptCode,jdbcType=VARCHAR} deptCode,
+	        	#{item.deptName,jdbcType=VARCHAR} deptName,
+	        	#{item.jobNum,jdbcType=VARCHAR} jobNum,
+	        	#{item.name,jdbcType=VARCHAR} name,
+	        	#{item.isDelete,jdbcType=DECIMAL} isDelete,
+	        	#{item.creationDate,jdbcType=DATE} creationDate,
+	        	#{item.lastUpdateDate,jdbcType=DATE} lastUpdateDate
+	        from dual
+    	</foreach> 
+    	) A
+	</insert>
+
+	<update id="update" parameterType="BiVoteCandidate">
+		UPDATE BI_VOTE_CANDIDATE
+		<set>
+			<if test="brandCode != null and brandCode != ''">
+				BRAND_CODE = #{brandCode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="brandName != null and brandName != ''">
+				BRAND_NAME = #{brandName,jdbcType=VARCHAR} ,
+			</if>
+			<if test="deptCode != null and deptCode != ''">
+				DEPT_CODE = #{deptCode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="deptName != null and deptName != ''">
+				DEPT_NAME = #{deptName,jdbcType=VARCHAR} ,
+			</if>
+			<if test="jobNum != null and jobNum != ''">
+				JOB_NUM = #{jobNum,jdbcType=VARCHAR} ,
+			</if>
+			<if test="name != null and name != ''">
+				NAME = #{name,jdbcType=VARCHAR} ,
+			</if>
+			<if test="isDelete != null and isDelete != ''">
+				IS_DELETE = #{isDelete,jdbcType=DECIMAL} ,
+			</if>
+			<if test="creationDate != null and creationDate != ''">
+				CREATION_DATE = #{creationDate,jdbcType=DATE} ,
+			</if>
+			<if test="lastUpdateDate != null and lastUpdateDate != ''">
+				LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=DATE} 
+			</if>
+		</set>
+		WHERE
+		   ID = #{id} 	</update>
+
+	<delete id="deleteById" parameterType="BiVoteCandidate">
+	    <![CDATA[
+	        DELETE FROM BI_VOTE_CANDIDATE WHERE
+		        ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="getById" resultMap="RM_BiVoteCandidate">
+		SELECT
+		<include refid="BiVoteCandidateColumns" />
+	    <![CDATA[
+		    FROM BI_VOTE_CANDIDATE 
+	        WHERE 
+	        	ID = #{id} 
+	    ]]>
+	</select>
+
+	<sql id="listSQL">
+		<where>
+			<if
+				test="id!=null and id!=''">
+				AND ID = #{id}			</if>
+			<if
+				test="brandCode!=null and brandCode!=''">
+				AND BRAND_CODE = #{brandCode}			</if>
+			<if
+				test="brandName!=null and brandName!=''">
+				AND BRAND_NAME = #{brandName}			</if>
+			<if
+				test="deptCode!=null and deptCode!=''">
+				AND DEPT_CODE = #{deptCode}			</if>
+			<if
+				test="deptName!=null and deptName!=''">
+				AND DEPT_NAME = #{deptName}			</if>
+			<if
+				test="jobNum!=null and jobNum!=''">
+				AND JOB_NUM = #{jobNum}			</if>
+			<if
+				test="name!=null and name!=''">
+				AND NAME = #{name}			</if>
+			<if
+				test="isDelete!=null">
+				AND IS_DELETE = #{isDelete}			</if>
+			<if
+				test="creationDateBegin !=null and creationDateBegin!=''">
+				AND CREATION_DATE >= to_date(#{creationDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="creationDateEnd!=null and creationDateEnd!=''">
+				AND CREATION_DATE &lt;= to_date(#{creationDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="lastUpdateDateBegin !=null and lastUpdateDateBegin!=''">
+				AND LAST_UPDATE_DATE >= to_date(#{lastUpdateDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="lastUpdateDateEnd!=null and lastUpdateDateEnd!=''">
+				AND LAST_UPDATE_DATE &lt;= to_date(#{lastUpdateDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+		</where>
+	</sql>
+
+	<select id="findPageCount" resultType="int" parameterType="BiVoteCandidate">
+		SELECT count(*) FROM BI_VOTE_CANDIDATE
+		<include refid="listSQL" />
+	</select>
+
+	<select id="findPageList" resultMap="RM_BiVoteCandidate"
+		parameterType="BiVoteCandidate">
+		SELECT
+		<include refid="BiVoteCandidateColumns" />
+		FROM BI_VOTE_CANDIDATE
+		<include refid="listSQL" />
+		<if test="sortColumns!=null and sortColumns!=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<select id="findVoteCandidates" resultMap="RM_BiVoteCandidate"
+		parameterType="BiVoteCandidate">
+		SELECT
+		<include refid="BiVoteCandidateColumns" />
+		FROM BI_VOTE_CANDIDATE
+		<include refid="listSQL" />
+		 ORDER BY DEPT_CODE,ORDERNUM DESC
+	</select>
+	
+	<select id="findDeptNameList" resultType="String" parameterType="BiVoteCandidate">
+		select dept_name from bi_vote_candidate
+		<include refid="listSQL" />
+		group by dept_name,dept_code order by dept_code desc
+	</select>
+
+	<update id="updateCandidateVotes" parameterType="Map">
+	     UPDATE BI_VOTE_CANDIDATE SET IS_DELETE = #{flag},LAST_UPDATE_DATE = sysdate WHERE
+		        ID in
+		 <foreach collection="userIds" index="index" item="userId" open="(" separator="," close=")">    
+            ${userId}    
+         </foreach>
+	</update>
+	
+	<select id="queryEmpPhotoByJobNum" resultType="java.util.HashMap" parameterType="BiVoteCandidate">
+		select p.emp_no,p.emp_photo from bi_fr_user_photo p where p.is_delete = 0 and p.emp_no = #{jobNum} 
+	</select>
+
+</mapper>
+

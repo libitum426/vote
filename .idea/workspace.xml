@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="200e34f7-7a1a-4ca4-9d1d-e8d9a5848061" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="JupyterTrust" id="c079d446-23da-4e4d-8214-60c43bb2bc81" />
+  <component name="ProjectId" id="1jUsijJ9NeuDRRPzwZDDvSdHEeQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\liuyang\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="200e34f7-7a1a-4ca4-9d1d-e8d9a5848061" name="Default Changelist" comment="" />
+      <created>1603870137127</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603870137127</updated>
+      <workItem from="1603870138551" duration="1333000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="732" y="215" key="FileChooserDialogImpl" timestamp="1603870221180">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="732" y="215" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603870221180" />
+    <state x="366" y="0" key="SettingsEditor" timestamp="1603870227078">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="366" y="0" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603870227078" />
+    <state x="676" y="223" key="svn.repositoryBrowser" timestamp="1603870298722">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="676" y="223" key="svn.repositoryBrowser/0.0.1920.1040@0.0.1920.1040" timestamp="1603870298722" />
+  </component>
+</project>

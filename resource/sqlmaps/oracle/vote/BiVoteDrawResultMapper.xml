@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mendale.dao.vote.BiVoteDrawResultDao">
+
+	<resultMap id="RM_BiVoteDrawResult" type="BiVoteDrawResult">
+		<result property="id" column="ID" />
+		<result property="drawId" column="DRAW_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="drawRemark" column="DRAW_REMARK" />
+		<result property="creationDate" column="CREATION_DATE" />
+		<result property="drawStatus" column="DRAW_STATUS" />
+	</resultMap>
+
+	<sql id="BiVoteDrawResultColumns">
+	    <![CDATA[
+		ID,DRAW_ID,USER_ID,DRAW_REMARK,CREATION_DATE,DRAW_STATUS
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="BiVoteDrawResult">
+	        INSERT INTO BI_VOTE_DRAW_RESULT
+	        <trim prefix="(" suffix=")" suffixOverrides=",">
+	        	<if test="drawId!=null">DRAW_ID,</if>
+	        	<if test="userId!=null">USER_ID,</if>
+	        	<if test="drawRemark!=null">DRAW_REMARK,</if>
+	        	<if test="creationDate!=null">CREATION_DATE,</if>
+	        </trim>
+	        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+	        	<if test="drawId!=null">#{drawId,jdbcType=DECIMAL},</if>
+	        	<if test="userId!=null">#{userId,jdbcType=DECIMAL},</if>
+	        	<if test="drawRemark!=null">#{drawRemark,jdbcType=VARCHAR},</if>
+	        	<if test="creationDate!=null">#{creationDate,jdbcType=DATE},</if>
+	        </trim>
+	</insert>
+
+	<update id="update" parameterType="BiVoteDrawResult">
+		UPDATE BI_VOTE_DRAW_RESULT
+		<set>
+			<if test="drawId != null and drawId != ''">
+				DRAW_ID = #{drawId,jdbcType=DECIMAL} ,
+			</if>
+			<if test="userId != null and userId != ''">
+				USER_ID = #{userId,jdbcType=DECIMAL} ,
+			</if>
+			<if test="drawRemark != null and drawRemark != ''">
+				DRAW_REMARK = #{drawRemark,jdbcType=VARCHAR} ,
+			</if>
+			<if test="creationDate != null and creationDate != ''">
+				CREATION_DATE = #{creationDate,jdbcType=DATE} ,
+			</if>
+			<if test="drawStatus != null">
+				DRAW_STATUS = #{drawStatus,jdbcType=DECIMAL} 
+			</if>
+		</set>
+		WHERE
+		   ID = #{id} 	</update>
+
+	<delete id="deleteById" parameterType="BiVoteDrawResult">
+	    <![CDATA[
+	        DELETE FROM BI_VOTE_DRAW_RESULT WHERE
+		        ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="getById" resultMap="RM_BiVoteDrawResult">
+		SELECT
+		<include refid="BiVoteDrawResultColumns" />
+	    <![CDATA[
+		    FROM BI_VOTE_DRAW_RESULT 
+	        WHERE 
+	        	ID = #{id} 
+	    ]]>
+	</select>
+
+	<sql id="listSQL">
+		<where>
+			<if
+				test="id!=null and id!=''">
+				AND ID = #{id}			</if>
+			<if
+				test="drawId!=null and drawId!=''">
+				AND DRAW_ID = #{drawId}			</if>
+			<if
+				test="userId!=null and userId!=''">
+				AND USER_ID = #{userId}			</if>
+			<if
+				test="drawRemark!=null and drawRemark!=''">
+				AND DRAW_REMARK = #{drawRemark}			</if>
+			<if
+				test="creationDateBegin !=null and creationDateBegin!=''">
+				AND CREATION_DATE >= to_date(#{creationDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="creationDateEnd!=null and creationDateEnd!=''">
+				AND CREATION_DATE &lt;= to_date(#{creationDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+		</where>
+	</sql>
+
+	<select id="findPageCount" resultType="int" parameterType="BiVoteDrawResult">
+		SELECT count(*) FROM BI_VOTE_DRAW_RESULT
+		<include refid="listSQL" />
+	</select>
+
+	<select id="findPageList" resultMap="RM_BiVoteDrawResult"
+		parameterType="BiVoteDrawResult">
+		SELECT
+		<include refid="BiVoteDrawResultColumns" />
+		FROM BI_VOTE_DRAW_RESULT
+		<include refid="listSQL" />
+		<if test="sortColumns!=null and sortColumns!=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+
+</mapper>
+

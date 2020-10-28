@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mendale.dao.vote.BiVoteLoginDao">
+
+	<resultMap id="RM_BiVoteLogin" type="BiVoteLogin">
+		<result property="id" column="ID" />
+		<result property="code" column="CODE" />
+		<result property="password" column="PASSWORD" />
+		<result property="brandCode" column="BRAND_CODE" />
+		<result property="brandName" column="BRAND_NAME" />
+		<result property="name" column="NAME" />
+		<result property="departCode" column="DEPART_CODE" />
+		<result property="departName" column="DEPART_NAME" />
+		<result property="isDelete" column="IS_DELETE" />
+		<result property="createdBy" column="CREATED_BY" />
+		<result property="creationDate" column="CREATION_DATE" />
+		<result property="lastUpdatedBy" column="LAST_UPDATED_BY" />
+		<result property="lastUpdateDate" column="LAST_UPDATE_DATE" />
+	</resultMap>
+
+	<sql id="BiVoteLoginColumns">
+	    <![CDATA[
+		ID,CODE,PASSWORD,BRAND_CODE,BRAND_NAME,NAME,DEPART_CODE,DEPART_NAME,IS_DELETE,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="BiVoteLogin">
+	        INSERT INTO BI_VOTE_LOGIN
+	        <trim prefix="(" suffix=")" suffixOverrides=",">
+	        	<if test="code!=null">CODE,</if>
+	        	<if test="password!=null">PASSWORD,</if>
+	        	<if test="brandCode!=null">BRAND_CODE,</if>
+	        	<if test="brandName!=null">BRAND_NAME,</if>
+	        	<if test="name!=null">NAME,</if>
+	        	<if test="departCode!=null">DEPART_CODE,</if>
+	        	<if test="departName!=null">DEPART_NAME,</if>
+	        	<if test="isDelete!=null">IS_DELETE,</if>
+	        	<if test="createdBy!=null">CREATED_BY,</if>
+	        	<if test="creationDate!=null">CREATION_DATE,</if>
+	        	<if test="lastUpdatedBy!=null">LAST_UPDATED_BY,</if>
+	        	<if test="lastUpdateDate!=null">LAST_UPDATE_DATE,</if>
+	        </trim>
+	        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+	        	<if test="code!=null">#{code,jdbcType=VARCHAR},</if>
+	        	<if test="password!=null">#{password,jdbcType=VARCHAR},</if>
+	        	<if test="brandCode!=null">#{brandCode,jdbcType=VARCHAR},</if>
+	        	<if test="brandName!=null">#{brandName,jdbcType=VARCHAR},</if>
+	        	<if test="name!=null">#{name,jdbcType=VARCHAR},</if>
+	        	<if test="departCode!=null">#{departCode,jdbcType=VARCHAR},</if>
+	        	<if test="departName!=null">#{departName,jdbcType=VARCHAR},</if>
+	        	<if test="isDelete!=null">#{isDelete,jdbcType=DECIMAL},</if>
+	        	<if test="createdBy!=null">#{createdBy,jdbcType=VARCHAR},</if>
+	        	<if test="creationDate!=null">#{creationDate,jdbcType=DATE},</if>
+	        	<if test="lastUpdatedBy!=null">#{lastUpdatedBy,jdbcType=VARCHAR},</if>
+	        	<if test="lastUpdateDate!=null">#{lastUpdateDate,jdbcType=DATE},</if>
+	        </trim>
+	</insert>
+
+	<update id="update" parameterType="BiVoteLogin">
+		UPDATE BI_VOTE_LOGIN
+		<set>
+			<if test="code != null and code != ''">
+				CODE = #{code,jdbcType=VARCHAR} ,
+			</if>
+			<if test="password != null and password != ''">
+				PASSWORD = #{password,jdbcType=VARCHAR} ,
+			</if>
+			<if test="brandCode != null and brandCode != ''">
+				BRAND_CODE = #{brandCode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="brandName != null and brandName != ''">
+				BRAND_NAME = #{brandName,jdbcType=VARCHAR} ,
+			</if>
+			<if test="name != null and name != ''">
+				NAME = #{name,jdbcType=VARCHAR} ,
+			</if>
+			<if test="departCode != null and departCode != ''">
+				DEPART_CODE = #{departCode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="departName != null and departName != ''">
+				DEPART_NAME = #{departName,jdbcType=VARCHAR} ,
+			</if>
+			<if test="isDelete != null and isDelete != ''">
+				IS_DELETE = #{isDelete,jdbcType=DECIMAL} ,
+			</if>
+			<if test="createdBy != null and createdBy != ''">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR} ,
+			</if>
+			<if test="creationDate != null and creationDate != ''">
+				CREATION_DATE = #{creationDate,jdbcType=DATE} ,
+			</if>
+			<if test="lastUpdatedBy != null and lastUpdatedBy != ''">
+				LAST_UPDATED_BY = #{lastUpdatedBy,jdbcType=VARCHAR} ,
+			</if>
+			<if test="lastUpdateDate != null and lastUpdateDate != ''">
+				LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=DATE} 
+			</if>
+		</set>
+		WHERE
+		   ID = #{id} 	</update>
+
+	<delete id="deleteById" parameterType="BiVoteLogin">
+	    <![CDATA[
+	        DELETE FROM BI_VOTE_LOGIN WHERE
+		        ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="getById" resultMap="RM_BiVoteLogin">
+		SELECT
+		<include refid="BiVoteLoginColumns" />
+	    <![CDATA[
+		    FROM BI_VOTE_LOGIN 
+	        WHERE 
+	        	ID = #{id} 
+	    ]]>
+	</select>
+
+	<sql id="listSQL">
+		<where>
+			<if
+				test="id!=null and id!=''">
+				AND ID = #{id}			</if>
+			<if
+				test="code!=null and code!=''">
+				AND CODE = #{code}			</if>
+			<if
+				test="password!=null and password!=''">
+				AND PASSWORD = #{password}			</if>
+			<if
+				test="brandCode!=null and brandCode!=''">
+				AND BRAND_CODE = #{brandCode}			</if>
+			<if
+				test="brandName!=null and brandName!=''">
+				AND BRAND_NAME = #{brandName}			</if>
+			<if
+				test="name!=null and name!=''">
+				AND NAME = #{name}			</if>
+			<if
+				test="departCode!=null and departCode!=''">
+				AND DEPART_CODE = #{departCode}			</if>
+			<if
+				test="departName!=null and departName!=''">
+				AND DEPART_NAME = #{departName}			</if>
+			<if
+				test="isDelete!=null and isDelete!=''">
+				AND IS_DELETE = #{isDelete}			</if>
+			<if
+				test="createdBy!=null and createdBy!=''">
+				AND CREATED_BY = #{createdBy}			</if>
+			<if
+				test="creationDateBegin !=null and creationDateBegin!=''">
+				AND CREATION_DATE >= to_date(#{creationDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="creationDateEnd!=null and creationDateEnd!=''">
+				AND CREATION_DATE &lt;= to_date(#{creationDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="lastUpdatedBy!=null and lastUpdatedBy!=''">
+				AND LAST_UPDATED_BY = #{lastUpdatedBy}			</if>
+			<if
+				test="lastUpdateDateBegin !=null and lastUpdateDateBegin!=''">
+				AND LAST_UPDATE_DATE >= to_date(#{lastUpdateDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="lastUpdateDateEnd!=null and lastUpdateDateEnd!=''">
+				AND LAST_UPDATE_DATE &lt;= to_date(#{lastUpdateDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+		</where>
+	</sql>
+
+	<select id="findPageCount" resultType="int" parameterType="BiVoteLogin">
+		SELECT count(*) FROM BI_VOTE_LOGIN
+		<include refid="listSQL" />
+	</select>
+
+	<select id="findPageList" resultMap="RM_BiVoteLogin"
+		parameterType="BiVoteLogin">
+		SELECT
+		<include refid="BiVoteLoginColumns" />
+		FROM BI_VOTE_LOGIN
+		<include refid="listSQL" />
+		<if test="sortColumns!=null and sortColumns!=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+
+	 <select id="getByUserName" resultMap="RM_BiVoteLogin" parameterType="BiVoteLogin">
+			SELECT <include refid="BiVoteLoginColumns" />
+		    <![CDATA[
+			    FROM BI_VOTE_LOGIN 
+		    ]]>
+			<where>
+		       <if test="code != null and code != ''">
+					AND code = #{code}
+				</if>
+		       <if test="password != null and password != ''">
+					AND PASSWORD = #{password} 
+				</if>
+		       AND IS_DELETE = '0'
+			</where>
+	</select>
+
+</mapper>
+

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	
+	
+	<display-name>vote</display-name>
+	<description>mendale vote project </description>
+	<session-config>
+		<session-timeout>300</session-timeout>
+	</session-config>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/pages/common/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/pages/common/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/pages/common/403.jsp</location>
+	</error-page>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:spring/*.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<listener>
+	 <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:spring-mvc/*.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	 <!-- CXF Web Services 配置信息 
+	 <servlet>
+	  <display-name>CXF Servlet</display-name>
+	  <servlet-name>CXFServlet</servlet-name>
+	  <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+	  <load-on-startup>2</load-on-startup>
+	 </servlet>
+	 <servlet-mapping>
+	  <servlet-name>CXFServlet</servlet-name>
+	  <url-pattern>/services/*</url-pattern>
+	 </servlet-mapping>
+	 -->
+ 	 <!-- CXF结束 -->
+	
+<!-- 
+	<filter>
+		<filter-name>SecurityFilter</filter-name>
+		<filter-class>com.mendale.web.filter.SecurityFilter</filter-class>
+		<init-param>
+			<param-name>exclusive</param-name>
+			<param-value>/statics/js/jQuery.md5.js,/statics/images/dialog_ct.png,/statics/images/dialog_lt.png,/statics/images/icon_dialog.gif,/statics/images/dialog_bg.jpg,/statics/images/window.gif,/statics/images/dialog_closebtn.gif,/statics/images/dialog_rb.png,/statics/images/icon_alert.gif,/statics/images/dialog_lb.png,/statics/images/dialog_mrm.png,/statics/images/dialog_cb.png,/statics/images/dialog_rt.png,/statics/images/dialog_mlm.png,/pages/login.jsp,/login.jsp,/statics/images/login/login_anniu_2.gif,/login.do,/statics/js/zDialog.js,/statics/js/jquery-1.7.2.min.js,/statics/css/login_new.css,/statics/images/login/login_sr.gif,/statics/images/login/login_logo.gif,/statics/images/login/login_dl_dh.gif,/statics/images/login/login_bg.jpg,/statics/images/login/login_c_bg.jpg,/statics/images/login/login_anniu.gif,/statics/images/login/login_input.gif,/statics/images/login/login_bg.gif</param-value>
+		</init-param>
+		<init-param>
+			<param-name>redirectPage</param-name>
+			<param-value>/pages/login.jsp</param-value>
+		</init-param>
+	</filter>
+	 -->	
+	<!-- <filter-mapping> <filter-name>SecurityFilter</filter-name> <url-pattern>/*</url-pattern> 
+		</filter-mapping> -->
+	<filter>
+		<filter-name>EncodeFilter</filter-name>
+		<filter-class>com.mendale.web.filter.EncodeFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>NoCacheFilter</filter-name>
+		<filter-class>com.mendale.web.filter.NoCacheFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>NoCacheFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	
+	 <!-- Druid连接池 监控 
+	  <filter>  
+        <filter-name>DruidWebStatFilter</filter-name>  
+        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>  
+        <init-param>  
+            <param-name>exclusions</param-name>  
+            <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>  
+        </init-param>  
+      </filter>  
+      <filter-mapping>  
+        <filter-name>DruidWebStatFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+      </filter-mapping>  
+      
+      <servlet>  
+        <servlet-name>DruidStatView</servlet-name>  
+        <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>  
+     </servlet>  
+     <servlet-mapping>  
+        <servlet-name>DruidStatView</servlet-name>  
+        <url-pattern>/druid/*</url-pattern>  
+    </servlet-mapping>  
+    -->
+    
+    <welcome-file-list>
+		<welcome-file>/pages/login.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

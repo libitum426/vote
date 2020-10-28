@@ -1,0 +1,41 @@
+
+#flipbox {
+  line-height: 160px;
+  background-color: #ff9000;
+  font-family: "Î¢ÈíÑÅºÚ", 'ChunkFive Regular', Tahoma, Helvetica;
+  font-size: 4.5em;
+  color: #ffffff;
+  text-align: center;
+}
+#flipPad {
+  margin: 15px 0;
+  width: 180px;
+  text-align: center;
+}
+#flipPad a {
+  padding: 5px 15px;
+  background: #1e90ff;
+  border: 2px solid #1e90ff;
+  border-radius: 2px;
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1em;
+  font-family:"Î¢ÈíÑÅºÚ", 'ChunkFive Regular', Tahoma, Helvetica;
+  line-height: 30px;
+  height: 30px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-box-shadow: 1px 1px 2px #999999;
+  -webkit-box-shadow: 1px 1px 2px #999999;
+  -webkit-transition-duration: 1s;
+}
+#flipPad a:hover {
+  background-color: #ff9000;
+  border: 2px solid #ff9000;
+}
+#flipPad .revert {
+  background-color: #ff9000;
+  border: 2px solid #ff9000;
+  display: none;
+}

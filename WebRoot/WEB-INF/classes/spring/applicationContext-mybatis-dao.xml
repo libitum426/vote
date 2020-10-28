@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	 default-lazy-init="false">
+	 <bean id="plugin" class="com.mendale.common.util.PaginationInterceptor">
+        <property name="properties">
+            <props>
+                <prop key="dialectClass">com.mendale.common.util.dialect.OracleDialect</prop>
+                <prop key="sqlRegex">.*findPageList.*</prop>
+            </props>
+        </property>
+    </bean>
+	
+	<!-- MyBatis配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <!-- 自动扫描VO目录, 省掉Configuration.xml里的手工配置 -->
+        <property name="typeAliasesPackage" value="com.mendale.vo" />
+        <!-- 显式指定Mapper文件位置 -->
+        <property name="mapperLocations" value="classpath*:/sqlmaps/oracle/**/*.xml" />
+        <!-- 加载分页拦截器
+        <property name="plugins" ref="plugin" /> -->
+    </bean>
+    <!-- 扫描DAO接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <property name="basePackage" value="com.mendale.dao" />
+     </bean>
+</beans>

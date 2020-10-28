@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mendale.dao.vote.BiVoteBrandDao">
+
+	<resultMap id="RM_BiVoteBrand" type="BiVoteBrand">
+		<result property="id" column="ID" />
+		<result property="code" column="CODE" />
+		<result property="name" column="NAME" />
+		<result property="isDelete" column="IS_DELETE" />
+		<result property="createdBy" column="CREATED_BY" />
+		<result property="creationDate" column="CREATION_DATE" />
+		<result property="lastUpdatedBy" column="LAST_UPDATED_BY" />
+		<result property="lastUpdateDate" column="LAST_UPDATE_DATE" />
+	</resultMap>
+
+	<sql id="BiVoteBrandColumns">
+	    <![CDATA[
+		ID,CODE,NAME,IS_DELETE,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="BiVoteBrand">
+	        INSERT INTO BI_VOTE_BRAND
+	        <trim prefix="(" suffix=")" suffixOverrides=",">
+	        	<if test="code!=null">CODE,</if>
+	        	<if test="name!=null">NAME,</if>
+	        	<if test="isDelete!=null">IS_DELETE,</if>
+	        	<if test="createdBy!=null">CREATED_BY,</if>
+	        	<if test="creationDate!=null">CREATION_DATE,</if>
+	        	<if test="lastUpdatedBy!=null">LAST_UPDATED_BY,</if>
+	        	<if test="lastUpdateDate!=null">LAST_UPDATE_DATE,</if>
+	        </trim>
+	        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+	        	<if test="code!=null">#{code,jdbcType=VARCHAR},</if>
+	        	<if test="name!=null">#{name,jdbcType=VARCHAR},</if>
+	        	<if test="isDelete!=null">#{isDelete,jdbcType=DECIMAL},</if>
+	        	<if test="createdBy!=null">#{createdBy,jdbcType=VARCHAR},</if>
+	        	<if test="creationDate!=null">#{creationDate,jdbcType=DATE},</if>
+	        	<if test="lastUpdatedBy!=null">#{lastUpdatedBy,jdbcType=VARCHAR},</if>
+	        	<if test="lastUpdateDate!=null">#{lastUpdateDate,jdbcType=DATE},</if>
+	        </trim>
+	</insert>
+
+	<update id="update" parameterType="BiVoteBrand">
+		UPDATE BI_VOTE_BRAND
+		<set>
+			<if test="code != null and code != ''">
+				CODE = #{code,jdbcType=VARCHAR} ,
+			</if>
+			<if test="name != null and name != ''">
+				NAME = #{name,jdbcType=VARCHAR} ,
+			</if>
+			<if test="isDelete != null and isDelete != ''">
+				IS_DELETE = #{isDelete,jdbcType=DECIMAL} ,
+			</if>
+			<if test="createdBy != null and createdBy != ''">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR} ,
+			</if>
+			<if test="creationDate != null and creationDate != ''">
+				CREATION_DATE = #{creationDate,jdbcType=DATE} ,
+			</if>
+			<if test="lastUpdatedBy != null and lastUpdatedBy != ''">
+				LAST_UPDATED_BY = #{lastUpdatedBy,jdbcType=VARCHAR} ,
+			</if>
+				LAST_UPDATE_DATE = sysdate
+		</set>
+		WHERE
+		   ID = #{id} 	</update>
+
+	<delete id="deleteById" parameterType="BiVoteBrand">
+	    <![CDATA[
+	        DELETE FROM BI_VOTE_BRAND WHERE
+		        ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="getById" resultMap="RM_BiVoteBrand">
+		SELECT
+		<include refid="BiVoteBrandColumns" />
+	    <![CDATA[
+		    FROM BI_VOTE_BRAND 
+	        WHERE 
+	        	ID = #{id} 
+	    ]]>
+	</select>
+
+	<sql id="listSQL">
+		<where>
+			<if
+				test="id!=null and id!=''">
+				AND ID = #{id}			</if>
+			<if
+				test="code!=null and code!=''">
+				AND CODE like '%'||#{code}||'%'			</if>
+			<if
+				test="name!=null and name!=''">
+				AND NAME like '%'||#{name}||'%'			</if>
+			<if
+				test="isDelete!=null and isDelete!=''">
+				AND IS_DELETE = #{isDelete}			</if>
+			<if
+				test="createdBy!=null and createdBy!=''">
+				AND CREATED_BY = #{createdBy}			</if>
+			<if
+				test="creationDateBegin !=null and creationDateBegin!=''">
+				AND CREATION_DATE >= to_date(#{creationDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="creationDateEnd!=null and creationDateEnd!=''">
+				AND CREATION_DATE &lt;= to_date(#{creationDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="lastUpdatedBy!=null and lastUpdatedBy!=''">
+				AND LAST_UPDATED_BY = #{lastUpdatedBy}			</if>
+			<if
+				test="lastUpdateDateBegin !=null and lastUpdateDateBegin!=''">
+				AND LAST_UPDATE_DATE >= to_date(#{lastUpdateDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="lastUpdateDateEnd!=null and lastUpdateDateEnd!=''">
+				AND LAST_UPDATE_DATE &lt;= to_date(#{lastUpdateDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+		</where>
+	</sql>
+
+	<select id="findPageCount" resultType="int" parameterType="BiVoteBrand">
+		SELECT count(*) FROM BI_VOTE_BRAND
+		<include refid="listSQL" />
+	</select>
+
+	<select id="findPageList" resultMap="RM_BiVoteBrand"
+		parameterType="BiVoteBrand">
+		SELECT
+		<include refid="BiVoteBrandColumns" />
+		FROM BI_VOTE_BRAND
+		<include refid="listSQL" />
+	</select>
+	
+	<select id="queryBrandList" resultMap="RM_BiVoteBrand"
+		parameterType="BiVoteBrand">
+		SELECT
+		<include refid="BiVoteBrandColumns" />
+		FROM BI_VOTE_BRAND
+		<include refid="listSQL" />
+	</select>
+
+	<select id="queryBrandCount" resultType="int" parameterType="BiVoteBrand">
+		SELECT count(*) FROM BI_VOTE_BRAND
+		<include refid="listSQL" />
+	</select>
+	
+	<update id="updateBrands" parameterType="Map">
+	     UPDATE BI_VOTE_BRAND SET IS_DELETE = '1',LAST_UPDATED_BY = #{lastUpdatedBy},LAST_UPDATE_DATE = sysdate WHERE
+		        ID in
+		 <foreach collection="brandIds" index="index" item="brandId" open="(" separator="," close=")">    
+            ${brandId}    
+         </foreach>
+	</update>
+
+</mapper>
+

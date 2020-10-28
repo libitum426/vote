@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mendale.dao.vote.BiVoteDrawconfigDao">
+
+	<resultMap id="RM_BiVoteDrawconfig" type="BiVoteDrawconfig">
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="drawNum" column="DRAW_NUM" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="isActive" column="IS_ACTIVE" />
+		<result property="isDelete" column="IS_DELETE" />
+		<result property="createdBy" column="CREATED_BY" />
+		<result property="creationDate" column="CREATION_DATE" />
+		<result property="lastUpdatedBy" column="LAST_UPDATED_BY" />
+		<result property="lastUpdateDate" column="LAST_UPDATE_DATE" />
+		<result property="drawRemark" column="DRAW_REMARK" />
+		<result property="orderNum" column="ORDER_NUM" />
+		<result property="everyNum" column="EVERY_NUM" />
+		<result property="num" column="NUM" />
+		<result property="picPath" column="PIC_PATH" />
+		<result property="drawId" column="DRAW_ID" />
+	</resultMap>
+
+	<sql id="BiVoteDrawconfigColumns">
+	    <![CDATA[
+		ID,NAME,DRAW_NUM,START_DATE,END_DATE,IS_ACTIVE,IS_DELETE,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,
+		DRAW_REMARK,ORDER_NUM,EVERY_NUM,NUM,PIC_PATH,DRAW_ID
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="BiVoteDrawconfig">
+	        INSERT INTO BI_VOTE_DRAWCONFIG
+	        <trim prefix="(" suffix=")" suffixOverrides=",">
+	        	<if test="name!=null">NAME,</if>
+	        	<if test="drawNum!=null">DRAW_NUM,</if>
+	        	<if test="startDate!=null">START_DATE,</if>
+	        	<if test="endDate!=null">END_DATE,</if>
+	        	<if test="isActive!=null">IS_ACTIVE,</if>
+	        	<if test="isDelete!=null">IS_DELETE,</if>
+	        	<if test="createdBy!=null">CREATED_BY,</if>
+	        	<if test="creationDate!=null">CREATION_DATE,</if>
+	        	<if test="lastUpdatedBy!=null">LAST_UPDATED_BY,</if>
+	        	<if test="lastUpdateDate!=null">LAST_UPDATE_DATE,</if>
+	        	<if test="drawRemark!=null">DRAW_REMARK,</if>
+	        	<if test="orderNum!=null">ORDER_NUM,</if>
+	        	<if test="everyNum!=null">EVERY_NUM,</if>
+	        	<if test="num!=null">NUM,</if>
+	        	<if test="picPath!=null">PIC_PATH,</if>
+	        	<if test="drawId!=null">DRAW_ID,</if>
+	        </trim>
+	        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+	        	<if test="name!=null">#{name,jdbcType=VARCHAR},</if>
+	        	<if test="drawNum!=null">#{drawNum,jdbcType=DECIMAL},</if>
+	        	<if test="startDate!=null">#{startDate,jdbcType=DATE},</if>
+	        	<if test="endDate!=null">#{endDate,jdbcType=DATE},</if>
+	        	<if test="isActive!=null">#{isActive,jdbcType=DECIMAL},</if>
+	        	<if test="isDelete!=null">#{isDelete,jdbcType=DECIMAL},</if>
+	        	<if test="createdBy!=null">#{createdBy,jdbcType=VARCHAR},</if>
+	        	<if test="creationDate!=null">#{creationDate,jdbcType=DATE},</if>
+	        	<if test="lastUpdatedBy!=null">#{lastUpdatedBy,jdbcType=VARCHAR},</if>
+	        	<if test="lastUpdateDate!=null">#{lastUpdateDate,jdbcType=DATE},</if>
+	        	<if test="drawRemark!=null">#{drawRemark,jdbcType=VARCHAR},</if>
+	        	<if test="orderNum!=null">#{orderNum,jdbcType=VARCHAR},</if>
+	        	<if test="everyNum!=null">#{everyNum,jdbcType=DECIMAL},</if>
+	        	<if test="num!=null">#{num,jdbcType=DECIMAL},</if>
+	        	<if test="picPath!=null">#{picPath,jdbcType=VARCHAR},</if>
+	        	<if test="drawId!=null">#{drawId,jdbcType=DECIMAL},</if>
+	        </trim>
+	</insert>
+
+	<update id="update" parameterType="BiVoteDrawconfig">
+		UPDATE BI_VOTE_DRAWCONFIG
+		<set>
+			<if test="name != null and name != ''">
+				NAME = #{name,jdbcType=VARCHAR} ,
+			</if>
+			<if test="drawNum != null and drawNum != ''">
+				DRAW_NUM = #{drawNum,jdbcType=DECIMAL} ,
+			</if>
+			<if test="startDate != null and startDate != ''">
+				START_DATE = #{startDate,jdbcType=DATE} ,
+			</if>
+			<if test="endDate != null and endDate != ''">
+				END_DATE = #{endDate,jdbcType=DATE} ,
+			</if>
+			<if test="isActive != null and isActive != ''">
+				IS_ACTIVE = #{isActive,jdbcType=DECIMAL} ,
+			</if>
+			<if test="isDelete != null and isDelete != ''">
+				IS_DELETE = #{isDelete,jdbcType=DECIMAL} ,
+			</if>
+			<if test="createdBy != null and createdBy != ''">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR} ,
+			</if>
+			<if test="creationDate != null and creationDate != ''">
+				CREATION_DATE = #{creationDate,jdbcType=DATE} ,
+			</if>
+			<if test="lastUpdatedBy != null and lastUpdatedBy != ''">
+				LAST_UPDATED_BY = #{lastUpdatedBy,jdbcType=VARCHAR} ,
+			</if>
+			<if test="lastUpdateDate != null and lastUpdateDate != ''">
+				LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=DATE} ,
+			</if>
+			<if test="drawRemark != null and drawRemark != ''">
+				DRAW_REMARK = #{drawRemark,jdbcType=VARCHAR} ,
+			</if>
+			<if test="orderNum != null and orderNum != ''">
+				ORDER_NUM = #{orderNum,jdbcType=VARCHAR} ,
+			</if>
+			<if test="num != null and num != ''">
+				NUM = #{num,jdbcType=DECIMAL} ,
+			</if>
+			<if test="everyNum != null and everyNum != ''">
+				EVERY_NUM = #{everyNum,jdbcType=DECIMAL} ,
+			</if>
+			<if test="picPath != null and picPath != ''">
+				PIC_PATH = #{picPath,jdbcType=VARCHAR} ,
+			</if>
+			<if test="drawId != null and drawId != ''">
+				DRAW_ID = #{drawId,jdbcType=DECIMAL} ,
+			</if>
+		</set>
+		WHERE
+		   ID = #{id} 	</update>
+
+	<delete id="deleteById" parameterType="BiVoteDrawconfig">
+	    <![CDATA[
+	        DELETE FROM BI_VOTE_DRAWCONFIG WHERE
+		        ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="getById" resultMap="RM_BiVoteDrawconfig">
+		SELECT
+		<include refid="BiVoteDrawconfigColumns" />
+	    <![CDATA[
+		    FROM BI_VOTE_DRAWCONFIG 
+	        WHERE 
+	        	ID = #{id} 
+	    ]]>
+	</select>
+
+	<sql id="listSQL">
+		<where>
+			<if
+				test="id!=null and id!=''">
+				AND ID = #{id}			</if>
+			<if
+				test="drawId!=null and drawId!=''">
+				AND DRAW_ID = #{drawId} </if>
+			<if
+				test="name!=null and name!=''">
+				AND NAME LIKE '%${name}%'			</if>
+			<if
+				test="drawNum!=null and drawNum!=''">
+				AND DRAW_NUM = #{drawNum}			</if>
+			<if
+				test="startDateBegin !=null and startDateBegin!=''">
+				AND START_DATE >= to_date(#{startDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="startDateEnd!=null and startDateEnd!=''">
+				AND START_DATE &lt;= to_date(#{startDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="endDateBegin !=null and endDateBegin!=''">
+				AND END_DATE >= to_date(#{endDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="endDateEnd!=null and endDateEnd!=''">
+				AND END_DATE &lt;= to_date(#{endDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="isActive!=null and isActive!=''">
+				AND IS_ACTIVE = #{isActive}			</if>
+			<if
+				test="isDelete!=null and isDelete!=''">
+				AND IS_DELETE = #{isDelete}			</if>
+			<if
+				test="createdBy!=null and createdBy!=''">
+				AND CREATED_BY = #{createdBy}			</if>
+			<if
+				test="creationDateBegin !=null and creationDateBegin!=''">
+				AND CREATION_DATE >= to_date(#{creationDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="creationDateEnd!=null and creationDateEnd!=''">
+				AND CREATION_DATE &lt;= to_date(#{creationDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="lastUpdatedBy!=null and lastUpdatedBy!=''">
+				AND LAST_UPDATED_BY = #{lastUpdatedBy}			</if>
+			<if
+				test="lastUpdateDateBegin !=null and lastUpdateDateBegin!=''">
+				AND LAST_UPDATE_DATE >= to_date(#{lastUpdateDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="lastUpdateDateEnd!=null and lastUpdateDateEnd!=''">
+				AND LAST_UPDATE_DATE &lt;= to_date(#{lastUpdateDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="isDrawIdNull == '1'.toString()">
+				AND DRAW_ID IS NOT NULL			</if>
+			<if
+				test="isDraw != null and isDraw != ''">
+				AND DRAW_NUM > NUM			</if>
+		</where>
+	</sql>
+
+	<select id="findPageCount" resultType="int" parameterType="BiVoteDrawconfig">
+		SELECT count(*) FROM BI_VOTE_DRAWCONFIG
+		<include refid="listSQL" />
+	</select>
+
+	<select id="findPageList" resultMap="RM_BiVoteDrawconfig"
+		parameterType="BiVoteDrawconfig">
+		SELECT
+		<include refid="BiVoteDrawconfigColumns" />
+		FROM BI_VOTE_DRAWCONFIG
+		<include refid="listSQL" />
+	</select>
+	
+	<select id="queryList" resultMap="RM_BiVoteDrawconfig"
+		parameterType="BiVoteDrawconfig">
+		SELECT
+		<include refid="BiVoteDrawconfigColumns" />
+		FROM BI_VOTE_DRAWCONFIG
+		<include refid="listSQL" />
+		ORDER BY ORDER_NUM ASC
+	</select>
+	
+	<update id="operaDrawconfig" parameterType="Map">
+	     UPDATE BI_VOTE_DRAWCONFIG SET IS_ACTIVE = #{flag} WHERE
+		        ID in
+		 <foreach collection="drawIds" index="index" item="drawId" open="(" separator="," close=")">    
+            ${drawId}    
+         </foreach>
+	</update>
+
+	<select id="queryCount" resultType="int" parameterType="BiVoteDrawconfig">
+		SELECT count(*) FROM BI_VOTE_DRAWCONFIG
+		<include refid="listSQL" />
+	</select>
+
+</mapper>
+

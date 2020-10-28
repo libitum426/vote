@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <property name="log.base" value="c:/vote-logs/" />
+    <property name="Pname" value="webProject" />
+    
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+       <encoder>
+           <!-- <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level - [%X{req.id}/%X{loginUserId}/%X{req.remoteAddr}/%X{req.requestURI}/%X{req.queryString}] %logger{15} - %msg%n</pattern> -->
+           <pattern>%X{req.id} %d{HH:mm:ss.SSS} [%thread] %-5level - %logger{15} - %msg%n</pattern>
+       </encoder>
+    </appender>
+    
+	<appender name="debug-File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/common_debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1000KB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <fileNamePattern>${log.base}/${Pname}_debug.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{15} - %msg%n</pattern></encoder>
+    </appender>
+    
+    <appender name="info-File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${log.base}/common_info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/${Pname}_info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>1000KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>%X{req.id} %d{HH:mm:ss.SSS} [%thread] %logger{15} - %msg%n</pattern></encoder>
+    </appender>
+
+    <appender name="warn-File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${log.base}/common_warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/common_warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxFileSize>500KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>%X{req.id} %d{HH:mm:ss.SSS} [%thread] %logger{15} - %msg%n</pattern></encoder>
+    </appender>
+
+    <appender name="error-File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${log.base}/common_error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/common_error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxFileSize>500KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>%X{req.id} %d{HH:mm:ss.SSS} [%thread] %logger{15} - %msg%n</pattern></encoder>
+    </appender>
+
+    <appender name="Page404Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/page_404.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/page_404.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxFileSize>500KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>%X{req.id} %d{HH:mm:ss.SSS} [%thread] %-5level %logger{15} - %msg%n</pattern></encoder>
+    </appender>
+    
+    <appender name="Page500Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/page_500.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/page_500.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxFileSize>500KB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>%X{req.id} %d{HH:mm:ss.SSS} [%thread] %logger{15} - %msg%n</pattern></encoder>
+    </appender>
+    
+    
+<!--     <appender name="project-web" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/${Pname}_web.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/${Pname}_web.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{15} - %msg%n</pattern></encoder>
+    </appender>
+    <appender name="project-srv" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.base}/${Pname}_srv.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.base}/${Pname}_srv.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>%X{req.id} %d{HH:mm:ss.SSS} [%thread] %-5level %logger{15} - %msg%n</pattern></encoder>
+    </appender> -->
+
+    <logger name="org.springframework.web.servlet.PageNotFound" level="INFO">
+        <appender-ref ref="Page404Error" />
+    </logger>
+    
+    <logger name="Page500Error" level="INFO">
+        <appender-ref ref="Page500Error" />
+    </logger>
+    
+    
+<!--     <logger name="Project-Web" level="DEBUG">
+        <appender-ref ref="project-web" />
+    </logger>
+    <logger name="Project-Srv" level="DEBUG">additivity="false"
+        <appender-ref ref="project-srv" />
+    </logger> -->
+
+
+    <root level="INFO">
+    	<appender-ref ref="console" />
+        <appender-ref ref="debug-File" />
+        <appender-ref ref="info-File" />
+        <appender-ref ref="warn-File" />
+        <appender-ref ref="error-File" />
+    </root>
+    
+    
+    <!-- LOG4JDBC配置，打印SQL，如果不配置,默认会打印所有SQL  START -->
+    <logger name="jdbc.sqltiming" level="INFO" />
+    <logger name="jdbc.audit" level="ERROR" />
+    <logger name="jdbc.resultset" level="ERROR" />
+    <logger name="jdbc.sqlonly" level="ERROR" />
+    <logger name="jdbc.connection" level="ERROR" />
+    <logger name="log4jdbc.debug" level="ERROR" />
+    <logger name="jdbc.resultsettable" level="ERROR" /> 
+    <!-- 如果不配置,默认会打印SQL  END -->
+</configuration>

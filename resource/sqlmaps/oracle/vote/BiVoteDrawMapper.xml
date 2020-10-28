@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mendale.dao.vote.BiVoteDrawDao">
+
+	<resultMap id="RM_BiVoteDraw" type="BiVoteDraw">
+		<result property="drawId" column="DRAW_ID" />
+		<result property="drawTitle" column="DRAW_TITLE" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="isFlag" column="IS_FLAG" />
+		<result property="isDelete" column="IS_DELETE" />
+		<result property="createdBy" column="CREATED_BY" />
+		<result property="creationDate" column="CREATION_DATE" />
+		<result property="lastUpdatedBy" column="LAST_UPDATED_BY" />
+		<result property="lastUpdateDate" column="LAST_UPDATE_DATE" />
+		<result property="drawType" column="DRAW_TYPE" />
+	</resultMap>
+
+	<sql id="BiVoteDrawColumns">
+	    <![CDATA[
+		DRAW_ID,DRAW_TITLE,START_DATE,END_DATE,IS_FLAG,IS_DELETE,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,DRAW_TYPE
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="BiVoteDraw">
+		<selectKey resultType="java.lang.Long" order="BEFORE"
+			keyProperty="drawId">
+			SELECT SEQ_BI_VOTE_DRAW.nextval AS drawId FROM DUAL
+		</selectKey>
+	        INSERT INTO BI_VOTE_DRAW
+	        <trim prefix="(" suffix=")" suffixOverrides=",">
+	        	<if test="drawId!=null">DRAW_ID,</if>
+	        	<if test="drawTitle!=null">DRAW_TITLE,</if>
+	        	<if test="startDate!=null">START_DATE,</if>
+	        	<if test="endDate!=null">END_DATE,</if>
+	        	<if test="isFlag!=null">IS_FLAG,</if>
+	        	<if test="isDelete!=null">IS_DELETE,</if>
+	        	<if test="createdBy!=null">CREATED_BY,</if>
+	        	<if test="creationDate!=null">CREATION_DATE,</if>
+	        	<if test="lastUpdatedBy!=null">LAST_UPDATED_BY,</if>
+	        	<if test="lastUpdateDate!=null">LAST_UPDATE_DATE,</if>
+	        	<if test="drawType!=null">DRAW_TYPE,</if>
+	        </trim>
+	        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+	        	<if test="drawId!=null">#{drawId,jdbcType=DECIMAL},</if>
+	        	<if test="drawTitle!=null">#{drawTitle,jdbcType=VARCHAR},</if>
+	        	<if test="startDate!=null">#{startDate,jdbcType=DATE},</if>
+	        	<if test="endDate!=null">#{endDate,jdbcType=DATE},</if>
+	        	<if test="isFlag!=null">#{isFlag,jdbcType=DECIMAL},</if>
+	        	<if test="isDelete!=null">#{isDelete,jdbcType=DECIMAL},</if>
+	        	<if test="createdBy!=null">#{createdBy,jdbcType=VARCHAR},</if>
+	        	<if test="creationDate!=null">#{creationDate,jdbcType=DATE},</if>
+	        	<if test="lastUpdatedBy!=null">#{lastUpdatedBy,jdbcType=VARCHAR},</if>
+	        	<if test="lastUpdateDate!=null">#{lastUpdateDate,jdbcType=DATE},</if>
+	        	<if test="drawType!=null">#{drawType,jdbcType=DECIMAL},</if>
+	        </trim>
+	</insert>
+
+	<update id="update" parameterType="BiVoteDraw">
+		UPDATE BI_VOTE_DRAW
+		<set>
+			<if test="drawTitle != null and drawTitle != ''">
+				DRAW_TITLE = #{drawTitle,jdbcType=VARCHAR} ,
+			</if>
+			<if test="startDate != null and startDate != ''">
+				START_DATE = #{startDate,jdbcType=DATE} ,
+			</if>
+			<if test="endDate != null and endDate != ''">
+				END_DATE = #{endDate,jdbcType=DATE} ,
+			</if>
+			<if test="isFlag != null and isFlag != ''">
+				IS_FLAG = #{isFlag,jdbcType=DECIMAL} ,
+			</if>
+			<if test="isDelete != null and isDelete != ''">
+				IS_DELETE = #{isDelete,jdbcType=DECIMAL} ,
+			</if>
+			<if test="createdBy != null and createdBy != ''">
+				CREATED_BY = #{createdBy,jdbcType=VARCHAR} ,
+			</if>
+			<if test="creationDate != null and creationDate != ''">
+				CREATION_DATE = #{creationDate,jdbcType=DATE} ,
+			</if>
+			<if test="lastUpdatedBy != null and lastUpdatedBy != ''">
+				LAST_UPDATED_BY = #{lastUpdatedBy,jdbcType=VARCHAR} ,
+			</if>
+			<if test="lastUpdateDate != null and lastUpdateDate != ''">
+				LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=DATE} ,
+			</if>
+			<if test="drawType != null and drawType != ''">
+				DRAW_TYPE = #{drawType,jdbcType=DECIMAL} 
+			</if>
+		</set>
+		WHERE
+		   DRAW_ID = #{drawId} 	</update>
+
+	<delete id="deleteById" parameterType="BiVoteDraw">
+	    <![CDATA[
+	        DELETE FROM BI_VOTE_DRAW WHERE
+		        DRAW_ID = #{drawId} 
+	    ]]>
+	</delete>
+
+	<select id="getById" resultMap="RM_BiVoteDraw">
+		SELECT
+		<include refid="BiVoteDrawColumns" />
+	    <![CDATA[
+		    FROM BI_VOTE_DRAW 
+	        WHERE 
+	        	DRAW_ID = #{drawId} 
+	    ]]>
+	</select>
+
+	<sql id="listSQL">
+		<where>
+			<if
+				test="drawId!=null and drawId!=''">
+				AND DRAW_ID = #{drawId}			</if>
+			<if
+				test="drawTitle!=null and drawTitle!=''">
+				AND DRAW_TITLE LIKE '%${drawTitle}%'			</if>
+			<if
+				test="startDateBegin !=null and startDateBegin!=''">
+				AND START_DATE >= to_date(#{startDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="startDateEnd!=null and startDateEnd!=''">
+				AND START_DATE &lt;= to_date(#{startDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="endDateBegin !=null and endDateBegin!=''">
+				AND END_DATE >= to_date(#{endDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="endDateEnd!=null and endDateEnd!=''">
+				AND END_DATE &lt;= to_date(#{endDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="isFlag!=null">
+				AND IS_FLAG = #{isFlag}			</if>
+			<if
+				test="isDelete!=null">
+				AND IS_DELETE = #{isDelete}			</if>
+			<if
+				test="createdBy!=null and createdBy!=''">
+				AND CREATED_BY = #{createdBy}			</if>
+			<if
+				test="creationDateBegin !=null and creationDateBegin!=''">
+				AND CREATION_DATE >= to_date(#{creationDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="creationDateEnd!=null and creationDateEnd!=''">
+				AND CREATION_DATE &lt;= to_date(#{creationDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="lastUpdatedBy!=null and lastUpdatedBy!=''">
+				AND LAST_UPDATED_BY = #{lastUpdatedBy}			</if>
+			<if
+				test="lastUpdateDateBegin !=null and lastUpdateDateBegin!=''">
+				AND LAST_UPDATE_DATE >= to_date(#{lastUpdateDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="lastUpdateDateEnd!=null and lastUpdateDateEnd!=''">
+				AND LAST_UPDATE_DATE &lt;= to_date(#{lastUpdateDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="drawType!=null">
+				AND DRAW_TYPE = #{drawType}			</if>
+		</where>
+	</sql>
+
+	<select id="findPageCount" resultType="int" parameterType="BiVoteDraw">
+		SELECT count(*) FROM BI_VOTE_DRAW
+		<include refid="listSQL" />
+	</select>
+
+	<select id="findPageList" resultMap="RM_BiVoteDraw"
+		parameterType="BiVoteDraw">
+		SELECT
+		<include refid="BiVoteDrawColumns" />
+		FROM BI_VOTE_DRAW
+		<include refid="listSQL" />
+		<if test="sortColumns!=null and sortColumns!=''">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<select id="queryList" resultMap="RM_BiVoteDraw"
+		parameterType="BiVoteDraw">
+		SELECT
+		<include refid="BiVoteDrawColumns" />
+		FROM BI_VOTE_DRAW
+		<include refid="listSQL" />
+		ORDER BY DRAW_ID desc
+	</select>
+	
+	<update id="operaDrawz" parameterType="Map">
+	     UPDATE BI_VOTE_DRAW SET IS_FLAG = #{flag} WHERE
+		        DRAW_ID in
+		 <foreach collection="drawIds" index="index" item="drawId" open="(" separator="," close=")">    
+            ${drawId}    
+         </foreach>
+	</update>
+
+</mapper>
+

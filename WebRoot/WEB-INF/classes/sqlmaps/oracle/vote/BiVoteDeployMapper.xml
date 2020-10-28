@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mendale.dao.vote.BiVoteDeployDao">
+
+	<resultMap id="RM_BiVoteDeploy" type="BiVoteDeploy">
+		<result property="id" column="ID" />
+		<result property="brandCode" column="BRAND_CODE" />
+		<result property="brandName" column="BRAND_NAME" />
+		<result property="voteTitle" column="VOTE_TITLE" />
+		<result property="maxVote" column="MAX_VOTE" />
+		<result property="minVote" column="MIN_VOTE" />
+		<result property="remark" column="REMARK" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="isFlag" column="IS_FLAG" />
+		<result property="isDelete" column="IS_DELETE" />
+		<result property="createdBy" column="CREATED_BY" />
+		<result property="creationDate" column="CREATION_DATE" />
+		<result property="lastUpdatedBy" column="LAST_UPDATED_BY" />
+		<result property="lastUpdateDate" column="LAST_UPDATE_DATE" />
+		<result property="voteNum" column="VOTE_NUM" />
+		<result property="voteRate" column="VOTE_RATE" />
+	</resultMap>
+
+	<sql id="BiVoteDeployColumns">
+	    <![CDATA[
+		ID,BRAND_CODE,BRAND_NAME,VOTE_TITLE,MAX_VOTE,MIN_VOTE,REMARK,START_DATE,END_DATE,IS_FLAG,IS_DELETE,
+		CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,VOTE_NUM,VOTE_RATE
+	    ]]>
+	</sql>
+
+	<insert id="insert" parameterType="BiVoteDeploy">
+	    <![CDATA[
+	        INSERT INTO BI_VOTE_DEPLOY (
+	        	BRAND_CODE ,
+	        	BRAND_NAME ,
+	        	VOTE_TITLE ,
+	        	MAX_VOTE ,
+	        	MIN_VOTE ,
+	        	CREATED_BY ,
+	        	LAST_UPDATED_BY ,
+	        	REMARK ,
+	        	VOTE_NUM ,
+	        	VOTE_RATE ,
+	        	START_DATE ,
+	        	END_DATE
+	        ) VALUES (
+	        	#{brandCode,jdbcType=VARCHAR} ,
+	        	#{brandName,jdbcType=VARCHAR} ,
+	        	#{voteTitle,jdbcType=VARCHAR} ,
+	        	#{maxVote,jdbcType=DECIMAL} ,
+	        	#{minVote,jdbcType=DECIMAL} ,
+	        	#{createdBy,jdbcType=VARCHAR} ,
+	        	#{lastUpdatedBy,jdbcType=VARCHAR} ,
+	        	#{remark,jdbcType=VARCHAR} ,
+	        	#{voteNum,jdbcType=DECIMAL} ,
+	        	#{voteRate,jdbcType=DECIMAL} ,
+	        	#{startDate,jdbcType=DATE} ,
+	        	#{endDate,jdbcType=DATE}
+	        )
+	    ]]>
+	</insert>
+
+	<update id="update" parameterType="BiVoteDeploy">
+		UPDATE BI_VOTE_DEPLOY
+		<set>
+			<if test="brandCode != null and brandCode != ''">
+				BRAND_CODE = #{brandCode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="brandName != null and brandName != ''">
+				BRAND_NAME = #{brandName,jdbcType=VARCHAR} ,
+			</if>
+			<if test="voteTitle != null and voteTitle != ''">
+				VOTE_TITLE = #{voteTitle,jdbcType=VARCHAR} ,
+			</if>
+			<if test="maxVote != null and maxVote != ''">
+				MAX_VOTE = #{maxVote,jdbcType=DECIMAL} ,
+			</if>
+			<if test="minVote != null and minVote != ''">
+				MIN_VOTE = #{minVote,jdbcType=DECIMAL} ,
+			</if>
+			<if test="remark != null and remark != ''">
+				REMARK = #{remark,jdbcType=VARCHAR} ,
+			</if>
+			<if test="startDate != null and startDate != ''">
+				START_DATE = #{startDate,jdbcType=DATE} ,
+			</if>
+			<if test="endDate != null and endDate != ''">
+				END_DATE = #{endDate,jdbcType=DATE} ,
+			</if>
+			<if test="isFlag != null or isFlag == 0">
+				IS_FLAG = #{isFlag,jdbcType=DECIMAL} ,
+			</if>
+			<if test="isDelete != null or isDelete == 0">
+				IS_DELETE = #{isDelete,jdbcType=DECIMAL} ,
+			</if>
+			<if test="lastUpdatedBy != null and lastUpdatedBy != ''">
+				LAST_UPDATED_BY = #{lastUpdatedBy,jdbcType=VARCHAR} ,
+			</if>
+			<if test="lastUpdateDate != null and lastUpdateDate != ''">
+				LAST_UPDATE_DATE = sysdate ,
+			</if>
+			<if test="voteNum != null and voteNum != ''">
+				VOTE_NUM = #{voteNum,jdbcType=DECIMAL} ,
+			</if>
+			<if test="voteRate != null and voteRate != ''">
+				VOTE_RATE = #{voteRate,jdbcType=DECIMAL} ,
+			</if>
+		</set>
+		WHERE
+		   ID = #{id} 	</update>
+
+	<delete id="deleteById" parameterType="BiVoteDeploy">
+	    <![CDATA[
+	        DELETE FROM BI_VOTE_DEPLOY WHERE
+		        ID = #{id} 
+	    ]]>
+	</delete>
+
+	<select id="getById" resultMap="RM_BiVoteDeploy">
+		SELECT
+		<include refid="BiVoteDeployColumns" />
+	    <![CDATA[
+		    FROM BI_VOTE_DEPLOY 
+	        WHERE 
+	        	ID = #{id} 
+	    ]]>
+	</select>
+
+	<sql id="listSQL">
+		<where>
+			<if
+				test="id!=null and id!=''">
+				AND ID = #{id}			</if>
+			<if
+				test="brandCode!=null and brandCode!=''">
+				AND BRAND_CODE = #{brandCode}			</if>
+			<if
+				test="brandName!=null and brandName!=''">
+				AND BRAND_NAME = #{brandName}			</if>
+			<if
+				test="voteTitle!=null and voteTitle!=''">
+				AND VOTE_TITLE = #{voteTitle}			</if>
+			<if
+				test="maxVote!=null and maxVote!=''">
+				AND MAX_VOTE = #{maxVote}			</if>
+			<if
+				test="minVote!=null and minVote!=''">
+				AND MIN_VOTE = #{minVote}			</if>
+			<if
+				test="remark!=null and remark!=''">
+				AND REMARK = #{remark}			</if>
+			<if
+				test="startDateBegin !=null and startDateBegin!=''">
+				AND START_DATE >= to_date(#{startDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="startDateEnd!=null and startDateEnd!=''">
+				AND START_DATE &lt;= to_date(#{startDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="endDateBegin !=null and endDateBegin!=''">
+				AND END_DATE >= to_date(#{endDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="endDateEnd!=null and endDateEnd!=''">
+				AND END_DATE &lt;= to_date(#{endDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="isFlag!=null and isFlag == 0">
+				AND IS_FLAG = #{isFlag}			</if>
+			<if
+				test="isDelete!=null and isDelete==0">
+				AND IS_DELETE = #{isDelete}			</if>
+			<if
+				test="createdBy!=null and createdBy!=''">
+				AND CREATED_BY = #{createdBy}			</if>
+			<if
+				test="creationDateBegin !=null and creationDateBegin!=''">
+				AND CREATION_DATE >= to_date(#{creationDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="creationDateEnd!=null and creationDateEnd!=''">
+				AND CREATION_DATE &lt;= to_date(#{creationDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+			<if
+				test="lastUpdatedBy!=null and lastUpdatedBy!=''">
+				AND LAST_UPDATED_BY = #{lastUpdatedBy}			</if>
+			<if
+				test="lastUpdateDateBegin !=null and lastUpdateDateBegin!=''">
+				AND LAST_UPDATE_DATE >= to_date(#{lastUpdateDateBegin},'yyyy-MM-dd')
+			</if>
+			<if
+				test="lastUpdateDateEnd!=null and lastUpdateDateEnd!=''">
+				AND LAST_UPDATE_DATE &lt;= to_date(#{lastUpdateDateEnd}||'23:59:59','yyyy-MM-dd hh24:mi:ss')
+			</if>
+		</where>
+	</sql>
+
+	<select id="findPageCount" resultType="int" parameterType="BiVoteDeploy">
+		SELECT count(*) FROM BI_VOTE_DEPLOY
+		<include refid="listSQL" />
+	</select>
+
+	<select id="findPageList" resultMap="RM_BiVoteDeploy"
+		parameterType="BiVoteDeploy">
+		SELECT
+		<include refid="BiVoteDeployColumns" />
+		FROM BI_VOTE_DEPLOY
+		<include refid="listSQL" />
+	</select>
+	
+	<select id="findVoteDeploys" resultMap="RM_BiVoteDeploy"
+		parameterType="BiVoteDeploy">
+		SELECT
+		<include refid="BiVoteDeployColumns" />
+		FROM BI_VOTE_DEPLOY
+		<include refid="listSQL" />
+	</select>
+
+	<update id="updateVoteDeploys" parameterType="Map">
+	     UPDATE BI_VOTE_DEPLOY SET IS_FLAG = #{flag} WHERE
+		        ID in
+		 <foreach collection="userIds" index="index" item="userId" open="(" separator="," close=")">    
+            ${userId}    
+         </foreach>
+	</update>
+
+</mapper>
+

@@ -1,0 +1,9 @@
+.clearfix {
+	zoom: 1;     /* triggers hasLayout */
+}
+
+.tweetThis {
+	_position: absolute;
+	_bottom: 0;
+	_right: 0;
+}
